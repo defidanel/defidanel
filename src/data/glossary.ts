@@ -27,6 +27,8 @@ export const GLOSSARY: Term[] = [
   { term: 'Rookie card (RC)', category: 'Sports', definition: 'A player’s first licensed trading card, typically carrying a long-run value premium if the player becomes a star.' },
   { term: 'Short print (SP)', category: 'General', definition: 'A card printed in a smaller quantity than the rest of its set, whether by design or by historical production circumstance (e.g., a high-numbered vintage series).' },
   { term: 'Comps (comparables)', category: 'Pricing', definition: 'Recent actual sale prices of the same or similar card/grade, used to estimate current fair value.' },
+  { term: 'eBay sold / completed listings', category: 'Pricing', definition: 'eBay’s filtered view of items that actually sold (as opposed to active or expired-unsold listings) — the most widely used raw transaction-price source in the hobby.' },
+  { term: 'SportsCardsPro / PriceCharting', category: 'Pricing', definition: 'Sibling price-guide sites (sports cards and Pokémon/TCG respectively) that aggregate marketplace sales into grade-bucketed historical price charts and indices.' },
   { term: 'Buyer’s premium', category: 'Pricing', definition: 'A percentage fee an auction house adds to the winning bid, paid by the buyer on top of the hammer price.' },
   { term: 'Wash trading', category: 'Pricing', definition: 'Artificially inflating a price by having related parties trade an asset back and forth — a manipulation risk in thin, unregulated collectible markets.' },
   { term: 'Sealed product', category: 'Market', definition: 'Unopened packs, boxes, or cases, valued both for the chase cards they might contain and as a scarce, untouched artifact in its own right once discontinued.' },

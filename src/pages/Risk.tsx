@@ -3,7 +3,7 @@ import { Callout, Card, Grid, PageHeader, Section, Table } from '../components/u
 const RISKS = [
   {
     name: 'Liquidity risk',
-    detail: 'Even a well-known card can take weeks to sell at a fair price, and moving a large position quickly usually means accepting a discount. Unlike public equities, there is no continuous two-sided market.',
+    detail: 'Even a well-known card can take weeks to sell at a fair price, and moving a large position quickly usually means accepting a discount. Unlike public equities, there is no continuous two-sided market. A practical liquidity gauge: count how many eBay sold comps show up at your exact grade in the last 90 days — several recent sales suggests a liquid card, one sale from six months ago suggests a thin, hard-to-exit market.',
   },
   {
     name: 'Authentication & alteration risk',

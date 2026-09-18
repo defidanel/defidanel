@@ -1,20 +1,21 @@
+import CompSearch from '../components/CompSearch'
 import { Callout, Card, Grid, PageHeader, Section, Table } from '../components/ui'
 
 const SOURCES = [
   {
+    source: 'eBay sold / completed listings',
+    strength: 'The most-used comp source in the hobby by volume. Filtering to "Sold Items" + "Completed Listings" shows actual transaction prices, not asking prices, close to real-time and across every grade tier and condition.',
+    watch: 'Titles can misstate grade/centering/edition; includes best-offer and relisted items that can understate or overstate the real clearing price; thin for very high-end or very obscure cards.',
+  },
+  {
+    source: 'SportsCardsPro / PriceCharting',
+    strength: 'A price-guide index built by aggregating marketplace sales (mainly eBay) into grade-bucketed historical charts — SportsCardsPro for sports cards, PriceCharting for Pokémon and other TCGs. Good for seeing the trend line and the price ratio between grades at a glance.',
+    watch: 'It is a smoothed index, not a live order book — it can lag a fast move (up or down) and thin out on low-population or newly released cards where it has few underlying sales to work from.',
+  },
+  {
     source: 'Major auction houses (Heritage, Goldin, PWCC, etc.)',
     strength: 'Best data for the true high end — vetted consignments, public bidding, buyer’s premium disclosed.',
     watch: 'Only covers the top slice of the market; auction fever and marketing pushes can inflate single results.',
-  },
-  {
-    source: 'Marketplace sold listings (e.g., eBay "sold" filter)',
-    strength: 'Highest volume, best for common and mid-tier cards, close to real-time.',
-    watch: 'Includes private/relisted sales, potential shill bidding on thinly-traded items, and listing titles that misstate grade or centering.',
-  },
-  {
-    source: 'Aggregated price guides',
-    strength: 'Convenient single number, useful as a sanity check or starting point.',
-    watch: 'Update on a lag (days to months), often smooth over recent spikes or crashes, and can be thin on grade-specific and low-population cards.',
   },
 ]
 
@@ -52,6 +53,21 @@ export default function Pricing() {
           head={['Source', 'Strength', 'What to watch for']}
           rows={SOURCES.map((s) => [s.source, s.strength, s.watch])}
         />
+        <Callout tone="info" title="How practitioners actually combine the two" className="mt-4">
+          The standard workflow is: use SportsCardsPro/PriceCharting to see the shape — the trend
+          over time and the price ratio between grades (how much more a 10 is worth than a 9 for
+          this specific card) — then confirm the current number against a handful of the most
+          recent eBay sold comps at your exact grade, since the index can lag a fast-moving card.
+          Neither source alone is enough; the index can be stale, and any single eBay sale can be
+          an outlier.
+        </Callout>
+      </Section>
+
+      <Section
+        title="Look up real comps"
+        subtitle="Type a card and grade below to open a pre-filled search on eBay's sold listings and on the matching PriceCharting-network price guide. Nothing here is fetched, cached, or scraped — it just builds the search URL for you."
+      >
+        <CompSearch />
       </Section>
 
       <Section
