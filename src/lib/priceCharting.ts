@@ -5,6 +5,10 @@ export type PriceChartingProduct = {
   name: string
   consoleName?: string
   entries: PriceChartingEntry[]
+  // Raw "*-price" fields keyed by their original API name (in dollars), so
+  // callers that know the trading-card field→grade mapping (see gradeLadder.ts)
+  // can build a proper grade ladder instead of the humanized generic labels.
+  prices: Record<string, number>
 }
 
 export class PriceChartingUnavailableError extends Error {}
@@ -26,18 +30,25 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 function parseProduct(raw: unknown): PriceChartingProduct | null {
   if (!isRecord(raw)) return null
 
-  const entries: PriceChartingEntry[] = Object.entries(raw)
-    .filter(
-      (entry): entry is [string, number] =>
-        entry[0].endsWith('-price') && typeof entry[1] === 'number' && entry[1] > 0,
-    )
-    .map(([key, cents]) => ({ label: humanizeLabel(key), amount: cents / 100 }))
+  const priced = Object.entries(raw).filter(
+    (entry): entry is [string, number] =>
+      entry[0].endsWith('-price') && typeof entry[1] === 'number' && entry[1] > 0,
+  )
+
+  const entries: PriceChartingEntry[] = priced.map(([key, cents]) => ({
+    label: humanizeLabel(key),
+    amount: cents / 100,
+  }))
+
+  const prices: Record<string, number> = {}
+  for (const [key, cents] of priced) prices[key] = cents / 100
 
   return {
     id: typeof raw.id === 'string' ? raw.id : String(raw.id ?? ''),
     name: typeof raw['product-name'] === 'string' ? raw['product-name'] : 'Unknown product',
     consoleName: typeof raw['console-name'] === 'string' ? raw['console-name'] : undefined,
     entries,
+    prices,
   }
 }
 

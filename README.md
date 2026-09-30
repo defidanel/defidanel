@@ -21,6 +21,13 @@ calculator.
   assets, portfolio allocation considerations, and authenticity red flags.
 - **ROI Calculator** — an interactive tool that computes the expected value of
   grading a card given your own value/probability estimates per grade outcome.
+- **Comp Table** — builds a full PSA 7→10 grade ladder for one card: market
+  value per grade, each grade's multiple versus a chosen anchor, and a
+  disciplined offer target per rung. Works immediately with manual entry (type
+  the numbers you see) and auto-fills from the PriceCharting index once a key is
+  wired. The card field→grade mapping (`loose`/`cib`/`new`/`graded`/`box-only`/
+  `manual-only` → Ungraded/7/8/9/9.5/PSA 10) lives in `src/lib/gradeLadder.ts`
+  and should be re-confirmed against a live response once you have a key.
 - **Arb Scanner** — a friction-adjusted arbitrage evaluator for tokenized-card
   markets (Collector Crypt, Phygitals): enter a token price and the exact-match
   physical sold comp, and it computes whether the token is actually cheaper than

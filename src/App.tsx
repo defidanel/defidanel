@@ -9,6 +9,7 @@ const Market = lazy(() => import('./pages/Market'))
 const Pricing = lazy(() => import('./pages/Pricing'))
 const Risk = lazy(() => import('./pages/Risk'))
 const Calculator = lazy(() => import('./pages/Calculator'))
+const CompTable = lazy(() => import('./pages/CompTable'))
 const ArbScanner = lazy(() => import('./pages/ArbScanner'))
 const Glossary = lazy(() => import('./pages/Glossary'))
 
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/risk" element={<Risk />} />
             <Route path="/calculator" element={<Calculator />} />
+            <Route path="/comps" element={<CompTable />} />
             <Route path="/arb" element={<ArbScanner />} />
             <Route path="/glossary" element={<Glossary />} />
           </Routes>

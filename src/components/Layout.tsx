@@ -8,6 +8,7 @@ const NAV = [
   { to: '/pricing', label: 'Pricing' },
   { to: '/risk', label: 'Risk & Asset Class' },
   { to: '/calculator', label: 'ROI Calculator' },
+  { to: '/comps', label: 'Comp Table' },
   { to: '/arb', label: 'Arb Scanner' },
   { to: '/glossary', label: 'Glossary' },
 ]
