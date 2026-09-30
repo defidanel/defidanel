@@ -21,6 +21,11 @@ calculator.
   assets, portfolio allocation considerations, and authenticity red flags.
 - **ROI Calculator** — an interactive tool that computes the expected value of
   grading a card given your own value/probability estimates per grade outcome.
+- **Arb Scanner** — a friction-adjusted arbitrage evaluator for tokenized-card
+  markets (Collector Crypt, Phygitals): enter a token price and the exact-match
+  physical sold comp, and it computes whether the token is actually cheaper than
+  the physical card after every round-trip cost (vault withdrawal, resale fees,
+  shipping), with a verdict, breakeven, and max bid (see below).
 - **Glossary** — searchable reference of terms used throughout.
 
 All prices, population figures, and chart data in the app are illustrative
@@ -106,3 +111,40 @@ The `MarketSignal` shape returned by `src/lib/marketSignal.ts` (total, sampled
 count, low/median/high asking price, sampled listings) is deliberately generic
 — it's the intended input to a future "buy strength" score that combines
 scarcity (print run + population) with liquidity (this signal).
+
+## Arb Scanner & the Collector Crypt proxy
+
+The Arb Scanner (`/arb`) evaluates whether a tokenized card (Collector Crypt,
+Phygitals, etc.) is genuinely cheaper than the physical card after every
+round-trip cost. **The core math works with zero setup** — enter a token price
+and the exact-match physical sold comp, and `src/lib/arbScanner.ts`'s
+`evaluateArb()` returns the net edge, breakeven token price, a target-margin max
+bid, and a buy/thin/pass verdict. Default friction: 2% vault withdrawal
+(Collector Crypt), ~13% eBay resale fee, plus shipping both ways — all tunable
+in the UI.
+
+The optional **"Fetch listings"** button pulls live token listings through
+`api/collectorcrypt.js`. That proxy is a **scaffold**, not a finished
+integration:
+
+> ⚠️ The exact Collector Crypt endpoint, query params, auth scheme, and response
+> shape were **not** confirmed against the live docs — that site is unreachable
+> from the build environment. Before this button works you must, from
+> https://docs.collectorcrypt.com/marketplace/api:
+> 1. Set `COLLECTORCRYPT_API_BASE` (and `COLLECTORCRYPT_API_KEY` if required).
+> 2. Replace the `/v1/marketplace/listings` path + `search`/`limit` params in
+>    `api/collectorcrypt.js` with the real listings/search endpoint.
+> 3. Confirm the auth header (the scaffold sends `Authorization: Bearer`).
+>
+> The client (`parseTokenListing`) reads fields defensively (`price`/`ask`,
+> `name`/`title`, etc.), so it tolerates a range of shapes — but verify against
+> a real response once you have access. Until wired, the button shows a
+> "not configured" notice and the manual inputs carry the tool.
+
+**This is the StrongBuy thesis in code:** token markets are immature (<1% of the
+hobby) and price with latency, so tokens sit above *and* below physical value.
+The scanner turns "is this stale offer a real deal?" into a friction-adjusted
+number — but it is only as good as the exact-match physical comp you feed it
+(same set, card number, grader, grade). It's an educational decision-support
+tool, not financial advice; tokenized markets carry platform, smart-contract,
+and liquidity risk.
